@@ -461,8 +461,8 @@
 // console.log(normalizeInput("Big SALE"));
 
 //TASK-35
-//includes(substring) перевіряє, чи входить підрядок substring у рядок
-//повертає true або false
+// includes(substring) перевіряє, чи входить підрядок substring у рядок
+// повертає true або false
 
 // function checkForName(fullname, name) {
 //     const result = fullname.includes(name);
@@ -478,9 +478,9 @@
 
 //TASK-36
 // function checkForSpam(message) {
-//     // let result;
-//     // result = message.toLowerCase().includes('spam') || message.toLowerCase().includes('sale');
-//     // return result;
+//     let result;
+//     result = message.toLowerCase().includes('spam') || message.toLowerCase().includes('sale');
+//     return result;
 
 //     return message = message.toLowerCase().includes("spam") || message.toLowerCase().includes("sale") ? true : false;
 // }
@@ -490,4 +490,5 @@
 // console.log(checkForSpam("Amazing SalE, only tonight!"));
 // console.log(checkForSpam("Trust me, this is not a spam message"));
 // console.log(checkForSpam("Get rid of sPaM emails. Our book in on sale!"));
-// console.log(checkForSpam("[SPAM] How to earn fast money?"));
+// console.log(checkForSpam("[SPAM] How to earn fast money?")); 
+
