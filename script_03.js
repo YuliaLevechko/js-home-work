@@ -390,3 +390,206 @@
 // console.log(calculateTotalPrice("Scanner"));
 
 //TASK-21
+//Деструктуризація дозволяє «розпакувати» значення властивостей об'єкта
+//у локальні змінні.Це робить код в місці їх використання менш «шумним».
+//Деструктуризація завжди знаходиться у лівій частині операції присвоєння.
+//Змінним всередині фігурних дужок присвоюються значення властивостей об'єкта.
+//Якщо ім'я змінної та ім'я властивості збігаються, то відбувається присвоювання,
+//в іншому випадку їй буде присвоєно undefined.
+//Порядок оголошення змінних у фігурних дужках не важливий.
+
+// const highTemperatures = {
+//     yesterday: 28,
+//     today: 26,
+//     tomorrow: 33,
+// };
+// // const yesterday = highTemperatures.yesterday;
+// // const today = highTemperatures.today;
+// // const tomorrow = highTemperatures.tomorrow;
+// const { yesterday, today, tomorrow } = highTemperatures; // Деструктуризувала масив highTemperatures.
+// const meanTemperature = (yesterday + today + tomorrow) / 3;
+// console.log(meanTemperature);
+
+//TASK-22
+//З метою уникнення присвоєння undefined під час деструктуризації неіснуючих властивостей,
+//можна задати змінним значення за замовчуванням, які будуть присвоєні тільки у разі,
+//коли в об'єкті відсутня властивість з таким ім'ям.
+
+// const highTemperatures = {
+//     yesterday: 28,
+//     today: 26,
+//     tomorrow: 33,
+// };
+
+// // const yesterday = highTemperatures.yesterday;
+// // const today = highTemperatures.today;
+// // const tomorrow = highTemperatures.tomorrow;
+// // const icon = highTemperatures.icon;
+// const { yesterday, today, tomorrow, icon = "https://www.flaticon.com/svg/static/icons/svg/2204/2204346.svg"} = highTemperatures;
+
+// const meanTemperature = (yesterday + today + tomorrow) / 3;
+// console.log(meanTemperature);
+
+//TASK-23
+//Під час деструктуризації можна змінити ім'я змінної, в яку розпаковується
+//значення властивості.Спочатку пишемо ім'я властивості, з якої хочемо отримати значення,
+//після чого ставимо двокрапку і пишемо ім'я змінної, в яку необхідно
+//помістити значення цієї властивості.
+//Такий запис читається як «Створити змінну firstTitle, в яку помістити значення властивості title з об'єкта firstBook» тощо.
+
+// const highTemperatures = {
+//     yesterday: 28,
+//     today: 26,
+//     tomorrow: 33,
+// };
+
+// // const highYesterday = highTemperatures.yesterday;
+// // const highToday = highTemperatures.today;
+// // const highTomorrow = highTemperatures.tomorrow;
+// // const highIcon = highTemperatures.icon;
+// const { yesterday: highYesterday , today: highToday, tomorrow: highTomorrow, icon: highIcon = "https://www.flaticon.com/svg/static/icons/svg/2204/2204346.svg" } = highTemperatures;
+// //створено нові змінні highYesterday, highToday, highTomorrow куди передаються значення властивостей yesterday,today,tomorrow.
+// const meanTemperature = (highYesterday + highToday + highTomorrow) / 3;
+
+//TASK-24
+//Для того щоб скоротити кількість повторень,при перебиранні масиву об'єктів циклом for...of,
+// можна деструктуризувати властивості об'єкта у локальні змінні в тілі циклу.
+//Або, якщо об'єкт містить небагато властивостей, деструктуризацію можна виконати безпосередньо в місці оголошення змінної book.
+
+// const colors = [
+//     { hex: "#f44336", rgb: "244,67,54" },
+//     { hex: "#2196f3", rgb: "33,150,243" },
+//     { hex: "#4caf50", rgb: "76,175,80" },
+//     { hex: "#ffeb3b", rgb: "255,235,59" },
+// ];
+
+// const hexColors = [];
+// const rgbColors = [];
+
+// //деструктуризацію виконала безпосередньо в місці оголошення змінної color.
+// for (const {hex, rgb} of colors){
+// // for (const color of colors) {
+// //     const { hex, rgb } = color; //або, можна деструктуризувати в тілі функції.
+//     hexColors.push(hex);
+//     rgbColors.push(rgb);
+// }
+// console.log(hexColors);
+// console.log(rgbColors);
+
+//TASK-25
+//Для деструктуризації властивостей вкладених об'єктів використовуються
+//ті самі принципи, що й в трьох попередніх вправах.
+
+// const forecast = {
+//     today: {
+//     low: 28,
+//     high: 32,
+//     icon: "https://www.flaticon.com/svg/static/icons/svg/861/861059.svg",
+//     },
+//     tomorrow: {
+//     low: 27,
+//     high: 31,
+//     },
+// };
+
+// // const highToday = forecast.today.high;
+// // const lowToday = forecast.today.low;
+// // const todayIcon = forecast.today.icon;
+
+// // const highTomorrow = forecast.tomorrow.high;
+// // const lowTomorrow = forecast.tomorrow.low;
+// // const tomorrowIcon = forecast.tomorrow.icon;
+// const { today: { low: lowToday, high: highToday, icon: todayIcon = "https://www.flaticon.com/svg/static/icons/svg/2204/2204346.svg" }, tomorrow: { low: lowTomorrow, high: highTomorrow, icon: tomorrowIcon = "https://www.flaticon.com/svg/static/icons/svg/2204/2204346.svg" }, } = forecast;
+
+//TASK-26
+//Якщо функція приймає більше двох-трьох аргументів, дуже просто заплутатися,
+//в якій послідовності і що передавати.
+//Патерн «Об'єкт налаштувань» допомагає вирішити цю проблему, замінюючи набір параметрів
+//всього одним - об'єктом з іменованими властивостями.
+//Тоді під час її виклику передаємо один об'єкт з необхідними властивостями.
+//Ще один плюс в тому, що можна деструктуризувати об'єкт в параметрі book:
+//// Це можна зробити в тілі функції:
+// function doStuffWithBook(book) {
+//   const { title, numberOfPages, downloads, rating, public } = book;}
+// Або в сигнатурі (підписі), різниці немає:
+// function doStuffWithBook({ title, numberOfPages, downloads, rating, public })
+
+// const forecast = {
+//     today: { low: 10, high: 20 },
+//     tomorrow: { low: 20, high: 30 }
+// };
+
+// function calculateMeanTemperature(forecast) {
+//     const { today: { low: todayLow, high: todayHigh }, tomorrow: {low: tomorrowLow, high: tomorrowHigh},} = forecast;
+//     // const todayLow = forecast.today.low;
+//     // const todayHigh = forecast.today.high;
+//     // const tomorrowLow = forecast.tomorrow.low;
+//     // const tomorrowHigh = forecast.tomorrow.high;
+
+//     return (todayLow + todayHigh + tomorrowLow + tomorrowHigh) / 4;
+// }
+
+// console.log(calculateMeanTemperature({ today: {low: 28, high: 32}, tomorrow: {low: 25, high: 29} }));
+// console.log(calculateMeanTemperature({ today: {low: 37, high: 40}, tomorrow: {low: 33, high: 38} }));
+
+//TASK-27
+//Синтаксис ... (spread) дозволяє розподілити колекцію елементів (масив, рядок або об'єкт)
+//в місце, в якому очікується набір окремих значень.
+//B JavaScript розподіл не змінює оригінальну колекцію, тобто створюється копія кожного елемента.
+//Cинтаксис ... повертає розпакований масив, тобто розподіляє його елементи у якості окремих аргументів.
+
+// const scores = [89, 64, 42, 17, 93, 51, 26];
+
+// const bestScore = Math.max(...scores);   //використала синтаксис ... на масиві scores, щоб масив чисел перетворити в набір окремих значень.
+// const worstScore = Math.min(...scores); // після цього копія масиву scores = 89, 64, 42, 17, 93, 51, 26.
+// console.log(bestScore);
+// console.log(worstScore);
+
+//TASK-28
+//Операція ...spread дозволяє створити копію масиву або «склеїти» довільну кількість масивів
+//в один новий.Раніше для цього використовували методи slice() і concat(),
+//але операція розподілу дозволяє зробити те саме у коротшій формі.
+//Порядок розподілу важливий - він впливає на порядок елементів у новій колекції.
+
+// const firstGroupScores = [64, 42, 93];
+// const secondGroupScores = [89, 14, 51, 26];
+// const thirdGroupScores = [29, 47, 18, 97, 81];
+
+// const allScores = [...firstGroupScores, ...secondGroupScores, ...thirdGroupScores]; //склеїла всі 3 масиви в один.
+// const bestScore = Math.max(...allScores); //з нового загального масиву(а точніше з набору окремих значень нового масиву (...) allScores), знайшла найвищий бал
+// const worstScore = Math.min(...allScores); // і найнижчий бал, за допомогою методів Math.max і Math.min.
+
+// console.log(allScores);
+// console.log(bestScore);
+// console.log(worstScore);
+
+//TASK-29
+//Операція spread дозволяє розподілити властивості довільної кількості об'єктів в один новий.
+//Порядок розподілу має значення. Імена властивостей об'єкта - унікальні,
+//тому властивості об'єкта, що розподіляється, можуть перезаписати значення вже існуючої властивості, якщо їх імена збігаються.
+//Під час розподілу можна додавати властивості у довільне місце.
+//Головне пам'ятати про унікальність імені властивості і про те, що її значення може бути перезаписане.
+
+// const defaultSettings = {
+//     theme: "light",
+//     public: true,
+//     withPassword: false,
+//     minNumberOfQuestions: 10,
+//     timePerQuestion: 60,
+// };
+// const overrideSettings = {
+//     public: false,
+//     withPassword: true,
+//     timePerQuestion: 30,
+// };
+// // Change code below this line
+// const finalSettings = {...defaultSettings, ...overrideSettings}; //взяли налаштування за замовчуванням і поверх них застосувати перевизначені налаштування.
+// console.log(finalSettings);
+
+//TASK-30
+function makeTask(data) {
+    const completed = false;
+    const category = "General";
+    const priority = "Normal";
+
+}
