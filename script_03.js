@@ -582,14 +582,210 @@
 //     withPassword: true,
 //     timePerQuestion: 30,
 // };
-// // Change code below this line
 // const finalSettings = {...defaultSettings, ...overrideSettings}; //взяли налаштування за замовчуванням і поверх них застосувати перевизначені налаштування.
 // console.log(finalSettings);
 
 //TASK-30
-function makeTask(data) {
-    const completed = false;
-    const category = "General";
-    const priority = "Normal";
+// function makeTask(data) {
+//     const completed = false;
+//     const category = "General";
+//     const priority = "Normal";
+//     return { completed, category, priority, ...data };
+// }         //створила з властивостей об'єкта - локальні змінні
+// console.log(makeTask({}));
+// console.log(makeTask({ category: "Homemade", priority: "Low", text: "Take out the trash" }));
+// console.log(makeTask({ category: "Finance", text: "Take interest" }));
+// console.log(makeTask({ priority: "Low", text: "Choose shampoo" }));
+// console.log(makeTask({ text: "Buy bread" }));
 
-}
+//TASK-31
+//Операція ... (rest) дозволяє зібрати групу незалежних елементів у нову колекцію.
+//Синтаксично - це близнюк операції розподілу, але відрізнити їх просто:
+//розподіл - коли ... знаходиться у правій частині операції присвоювання,
+//а збирання - коли ... знаходиться в її лівій частині.
+//Одна зі сфер застосування операції rest - це створення функцій, які можуть приймати будь-яку кількість аргументів.
+//Ім'я параметра може бути довільним. Найчастіше його називають args,
+//restArgs або otherArgs - скорочено від arguments.
+
+// function add(...args) {
+//     let sum = 0;
+//     for (let arg of args) {
+//         sum += arg;
+//     }
+//     return sum;
+// }
+// console.log(add(15, 27));
+// console.log(add(12, 4, 11, 48));
+// console.log(add(32, 6, 13, 19, 8));
+// console.log(add(74, 11, 62, 46, 12, 36));
+
+//TASK-32
+//Операція ... (rest) також дозволяє зібрати в масив тільки ту частину аргументів,
+//яка необхідна, оголосивши параметри до «збирання».
+//Всі агументи, для яких будуть оголошені параметри, передадуть їм свої значення,
+//інші аргументи будуть поміщені в масив.Операція rest збирає решту усіх аргументів,
+//а тому повинна бути останньою у підписі функції, інакше виникне помилка.
+
+// function addOverNum(firstArg, ...args) {
+//     let total = 0;
+
+//     for (const arg of args) {
+//         if (firstArg < arg) {
+//         total += arg;
+//     }
+// }
+//     return total;
+// }
+// console.log(addOverNum(50, 15, 27));
+// console.log(addOverNum(10, 12, 4, 11, 48, 10, 8));
+// console.log(addOverNum(15, 32, 6, 13, 19, 8));
+// console.log(addOverNum(20, 74, 11, 62, 46, 12, 36));
+
+//TASK-33  //перший елемент-масив //інші числа
+// function findMatches(firstArg, ...args) {
+//     const matches = [];
+//     for (const arg of args) {
+//         if (firstArg.includes(arg)) { //якщо в масив firstArg входить поточне ітеруєме число,
+//             matches.push(arg); //то додаємо це число в змінну matches.
+//         }
+//     }
+//     return matches;
+// }
+// console.log(findMatches([1, 2, 3, 4, 5], 1, 8, 2, 7));
+// console.log(findMatches([4, 89, 17, 36, 2], 8, 17, 89, 27, 2));
+// console.log(findMatches([10, 24, 41, 6, 9, 19], 24, 11, 9, 23, 41));
+// console.log(findMatches([63, 11, 8, 29], 4, 7, 16));
+
+//TASK-34
+//Об'єкти можуть зберігати не тільки дані, але і функції для роботи з цими даними - методи.
+//Якщо значення властивості - це функція, така властивість називається методом об'єкта.
+//Такі об'єкти можна назвати «моделями». Вони пов'язують дані і методи для роботи з цими даними.
+
+// const bookShelf = {
+//     books: ["The last kingdom", "The guardian of dreams"],  //об'єкт
+//     getBooks() {                                           //метод об'єкта
+//     return "Returning all books";
+//     },
+//     addBook(bookName) {                                   //метод об'єкта
+//     return `Adding book ${bookName}`;
+//     },
+//     removeBook(bookName) {                               //метод об'єкта
+//         return `Deleting book ${bookName}`;
+//     },
+//     updateBook(oldName, newName) {                      //метод об'єкта
+//         return `Updating book ${oldName} to ${newName}`;
+//     }
+// };
+// console.log(bookShelf.getBooks());
+// console.log(bookShelf.addBook("Haze"));
+// console.log(bookShelf.removeBook("Red sunset"));
+// console.log(bookShelf.updateBook("Sands of dune", "Dune"));
+
+//TASK-35
+//Методи використовуються для роботи з властивостями об'єкта, їх зміни.
+//Для доступу до об'єкта в методі використовується не ім'я змінної, наприклад bookShelf,
+//а ключове слово this - контекст.Значенням this буде об'єкт перед «крапкою», тобто об'єкт,
+//який викликав цей метод, у нашому випадку - це посилання на об'єкт bookShelf.
+//Для того щоб отримати доступ до властивостей об'єкта в методах, ми звертаємось до нього
+//через this і далі, стандартно - «через крапку» до властивостей.
+
+// const bookShelf = {
+//     books: ["The last kingdom", "Haze", "The guardian of dreams"],
+//     updateBook(oldName, newName) {
+//         return this.books.splice(this.books.indexOf(oldName), 1, newName); //перший спосіб, одним рядком
+
+//         // const bookIdx = this.books.indexOf(oldName);      //другий спосіб, два методи окремо
+//         // return this.books.splice(bookIdx, 1, newName);
+
+//         // for (const book of this.books) {                 //третій спосіб, з перевіркою
+//         //     if (book === oldName) {
+//         //         const bookIdx = this.books.indexOf(oldName);
+//         //         return this.books.splice(bookIdx, 1, newName)
+//         //     }
+//         // }
+//     },
+// };
+// console.log(bookShelf.updateBook("Haze", "Dungeon chronicles"));
+// console.log(bookShelf.updateBook("The last kingdom", "Dune"));
+
+//TASK-36
+// const atTheOldToad = {
+//     potions: [], //Додала об'єкту atTheOldToad властивість potions, значенням якої є порожній масив.
+// };
+
+//TASK-37
+// const atTheOldToad = {
+//     potions: ["Speed potion", "Dragon breath", "Stone skin"],
+//     getPotions() {             //метод getPotions(),повертає значення властивості potions.
+//         return this.potions;
+//     },
+// };
+
+
+//TASK-38
+// const atTheOldToad = {
+//     potions: ["Speed potion", "Dragon breath", "Stone skin"],
+//     addPotion(potionName) {
+//         this.potions.push(potionName); //додаємо зілля potionName в кінець масиву зілля у властивості potions.
+//     },
+// };
+// atTheOldToad.addPotion("Invisibility");
+// atTheOldToad.addPotion("Power potion");
+// console.log(atTheOldToad.potions);
+
+//TASK-39
+// const atTheOldToad = {
+//     potions: ["Speed potion", "Dragon breath", "Stone skin"],
+//     removePotion(potionName) {  //видаляємо зілля potionName з масиву зілля у властивості potions.
+//         this.potions.splice(this.potions.indexOf(potionName), 1);
+//     },
+// };
+// atTheOldToad.removePotion("Dragon breath");
+// atTheOldToad.removePotion("Speed potion");
+// console.log(atTheOldToad.potions);
+
+//TASK-40
+// const atTheOldToad = {
+//     potions: ["Speed potion", "Dragon breath", "Stone skin"],
+//     updatePotionName(oldName, newName) { //оновлюємо назву зілля з oldName на newName.
+//         this.potions.splice(this.potions.indexOf(oldName), 1, newName);
+//     },
+// };
+// atTheOldToad.updatePotionName("Dragon breath", "Polymorth");
+// atTheOldToad.updatePotionName("Stone skin", "Invisibility");
+// console.log(atTheOldToad.potions);
+
+//TASK-41
+const atTheOldToad = {
+    potions: [
+        { name: "Speed potion", price: 460 },
+        { name: "Dragon breath", price: 780 },
+        { name: "Stone skin", price: 520 },
+    ],
+    getPotions() {
+        return this.potions;
+    },
+    addPotion(newPotion) {
+        for(const potion of this.potions){
+        if (potion.name === newPotion.name) {
+            return `Error! Potion ${newPotion.name} is already in your inventory!`; }
+    }
+        this.potions.push(newPotion);
+    },
+    removePotion(potionName) {
+        const {potions}=this;
+        for(let i=0; i<potions.length; i+=1) {
+            if (potions[i].name === potionName) {
+            potions.splice(i, 1);
+            }
+        }
+    },
+    updatePotionName(oldName, newName) {
+        for (let i = 0; i < this.potions.length; i+=1) {
+            const potion = this.potions[i];
+            if(potion.name === oldName) {
+            potion.name = newName;
+            }
+        }
+    },
+};   //максимально не зрозуміла, як це писати
